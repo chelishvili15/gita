@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="productList.css">
+    <title>Product List</title>
 </head>
 <body>
-    <h1>Products List</h1>
+    <div class="cont">
+        <h1>Products List</h1>
 
-    <a href="/products/add"><button>Add</button></a><br><br>
+        <a href="/products/add"><button>Add</button></a><br><br>
 
-    <table border="2">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Product name</th>
-            <th>Product kind</th>
-          </tr>
-         </thead>
-         <tbody id="tbody">
-        </tbody>
-      </table>
+        <table>
+            <thead>
+                <tr>
+                <th>Id</th>
+                <th>Product name</th>
+                <th>Product kind</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
     <script>
         const tbody = document.getElementById('tbody')
         const removes = document.getElementsByClassName('remove')
@@ -33,7 +36,7 @@
                 data.forEach(element => {
                     tbody.innerHTML += (`
                     <tr>
-                        <td>${element.id}</td>
+                        <td>${element.id + 1}</td>
                         <td>${element.product}</td>
                         <td>${element.kind}</td>
                         <td><button class="edit">Edit</button></td>

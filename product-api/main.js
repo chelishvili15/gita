@@ -6,6 +6,7 @@ const app = express();
 const products = require('./products')
 
 app.use(express.json());
+app.use(express.static('public'));
 
 app.get("/api/products", (req, res) => {
   res.send(products);
@@ -21,7 +22,7 @@ app.get("/products/add", (req, res) => {
 
 app.post("/api/products/add", (req, res) => {
   const val = req.body
-  val.id = Date.now()
+  val.id = products[products.length - 1].id + 1
 
   products.push(val)
 
@@ -40,6 +41,7 @@ app.get('/api/products/edit/:index', (req, res) => {
     kind: products[index].kind
   })
 })
+
 
 app.put('/api/products/edit', (req, res) => {
   const val = req.body

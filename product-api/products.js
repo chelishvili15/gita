@@ -1,21 +1,21 @@
 const products = [
   {
-    id: 1,
+    id: 0,
     product: "Apple",
     kind: "Fruit",
   },
   {
-    id: 2,
+    id: 1,
     product: "Orange",
     kind: "Citrus",
   },
   {
-    id: 3,
+    id: 2,
     product: "Cherry",
     kind: "Fruit",
   },
   {
-    id: 4,
+    id: 3,
     product: "Banana",
     kind: "Fruit",
   },
