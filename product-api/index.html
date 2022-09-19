@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Products List</h1>
+
+    <a href="/products/add"><button>Add</button></a><br><br>
+
+    <table border="2">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Product name</th>
+            <th>Product kind</th>
+          </tr>
+         </thead>
+         <tbody id="tbody">
+        </tbody>
+      </table>
+    <script>
+        const tbody = document.getElementById('tbody')
+        const removes = document.getElementsByClassName('remove')
+        const addButton = document.getElementById('add')
+
+        fetch('/api/products')
+            .then((response) => response.json())
+            .then((data) => {
+                data.forEach(element => {
+                    tbody.innerHTML += (`
+                    <tr>
+                        <td>${element.id}</td>
+                        <td>${element.product}</td>
+                        <td>${element.kind}</td>
+                        <td><button class="edit">Edit</button></td>
+                        <td><button class="remove">Remove</button></td>
+                    </tr>`
+                    )
+                });
+                // remove
+                Array.from(document.getElementsByClassName('remove')).forEach((val, index) => {
+                    val.addEventListener('click', () => {
+                        fetch("/api/products/delete", {
+                            method: "DELETE",
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ id: index })
+                        })
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .then(location.href = '/products')
+                    })
+                })
+                // edit
+                Array.from(document.getElementsByClassName('edit')).forEach((val, index) => {
+                    val.addEventListener('click', () => {
+                        fetch(`products/edit/${index}`)
+                        .then(location.href = `products/edit/${index}`)
+                    })
+                })
+            })
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" name="product" id="product" placeholder="product">
+    <br>
+    <br>
+    <input type="text" name="kind" id="kind" placeholder="kind">
+    <br>
+    <br>
+    <button id="add">Add</button>
+
+    <script>
+        const addButton = document.getElementById('add')
+        const name = document.getElementById('product')
+        const kind = document.getElementById('kind')
+
+        addButton.addEventListener('click', () => {
+            console.log('clicked')
+            fetch('/api/products/add', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ product: product.value, kind: kind.value })
+                })
+                .then((response) => response.json())
+                .then((data) => console.log(data))
+                .then(location.href = '/products')
+        })
+    </script>
+</body>
+</html>

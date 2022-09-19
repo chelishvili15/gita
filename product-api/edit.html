@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="name">
+    <br>
+    <br>
+    <input type="text" id="kind">
+    <br>
+    <br>
+    <button id="save">SAVE</button>
+
+    <script>
+        const name = document.getElementById('name')
+        const kind = document.getElementById('kind')
+        const saveButton = document.getElementById('save')
+
+        const url = window.location.href
+        const index = +url.substring(url.lastIndexOf('/') + 1)
+
+        // get old data
+        fetch(`/api/products/edit/${index}`)
+            .then(response => response.json())
+            .then(data => {
+                name.value = data.name
+                kind.value = data.kind
+            })
+        
+        // update data
+        saveButton.addEventListener('click', () => {
+            fetch(`/api/products/edit`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: index, product: name.value, kind: kind.value })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .then(location.href = '/products')
+        })
+    </script>
+</body>
+</html>
